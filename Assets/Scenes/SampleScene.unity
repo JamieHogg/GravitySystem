@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 969880717}
   - component: {fileID: 969880721}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,6 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eea5bdcacae96847ba9d7cce95d53a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetPrefab: {fileID: 1680605483468398, guid: e3d429be289952f41be52bcdf66c95e4,
+    type: 2}
   planets: []
   planetMattes:
   - {fileID: 2100000, guid: db4dd212d286be34aa39cb08f977b4bf, type: 2}
