@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 public class CameraControllerthing : MonoBehaviour
 {
+    public List<GameObject> nbodyObjs;
+    private int nCount = 0;
+    public List<GameObject> child;
+
     public GameObject cameraTarget;
     private GameObject cameraTargetStart;
     public float rotateSpeed;
     public float offsetDistance;
-    public float offsetHeight;
     public float smoothing;
-    public bool rotation90 = false;
-    public bool rotated = false;
+
     Vector3 offset;
-    bool following = true;
     Vector3 lastPosition;
 
     private float rotateLeft;
@@ -22,9 +24,22 @@ public class CameraControllerthing : MonoBehaviour
     private bool verticle = false;
     public int cameraRotation = 0;
 
-    void Start()
+    void Awake()
     {
-        lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
+        nbody[] nbodys = GameObject.FindObjectsOfType<nbody>();
+
+
+        foreach (nbody n in nbodys)
+        {
+            nbodyObjs.Add(n.gameObject);
+        }
+        foreach (GameObject n in nbodyObjs)
+        {
+            child.Add(n.transform.Find("Shape").gameObject);
+        }
+        cameraTarget = child[0];
+
+        lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y, cameraTarget.transform.position.z - offsetDistance);
         offset = lastPosition;
 
         cameraTargetStart = cameraTarget;
@@ -33,6 +48,7 @@ public class CameraControllerthing : MonoBehaviour
     void Update()
     {
         normalCamera();
+        switchCamera();
 
         if (horizontal)
         {
@@ -40,7 +56,7 @@ public class CameraControllerthing : MonoBehaviour
         }
         else if (verticle)
         {
-            offset = Quaternion.AngleAxis(rotateUp * rotateSpeed, Vector3.up) * offset;
+            offset = Quaternion.AngleAxis(rotateUp * rotateSpeed, Vector3.left) * offset;
         }
         transform.position = offset;
         transform.position = new Vector3(Mathf.Lerp(lastPosition.x, cameraTarget.transform.position.x + offset.x, smoothing * Time.deltaTime),
@@ -52,7 +68,7 @@ public class CameraControllerthing : MonoBehaviour
 	void LateUpdate()
 	{
 		lastPosition = transform.position;
-        linecastCheck();
+        //linecastCheck();
 	}
 
     void linecastCheck()
@@ -92,6 +108,19 @@ public class CameraControllerthing : MonoBehaviour
             rotateLeft = 0;
             horizontal = false;
             verticle = false;
+        }
+    }
+
+    void switchCamera()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (nCount == nbodyObjs.Count)
+            {
+                nCount = 0;
+            }
+            cameraTarget = child[nCount];
+            nCount++;
         }
     }
 }

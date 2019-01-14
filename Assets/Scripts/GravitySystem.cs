@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GravitySystem : MonoBehaviour {
 
-    public float gravityConstant = 6.673f;
+    public float gravityConstant;
     public List<GameObject> nbodyObjs;
     public List<float> masses;
     public List<Vector3> velocities;
