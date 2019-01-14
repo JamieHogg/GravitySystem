@@ -84,5 +84,6 @@ public class GravitySystem : MonoBehaviour {
         trail.material = trailMatte;
         trail.startWidth = 0.1f;
         trail.endWidth = 0f;
+        trail.time = 100;
     }
 }
