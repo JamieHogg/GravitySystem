@@ -5,10 +5,12 @@ using UnityEngine;
 public class GravitySystem : MonoBehaviour {
 
     public float gravityConstant;
-    public List<GameObject> nbodyObjs;
-    public List<float> masses;
-    public List<Vector3> velocities;
     public Material trailMatte;
+
+    [HideInInspector] public List<GameObject> nbodyObjs;
+    [HideInInspector] public List<nbodyType> types;
+    [HideInInspector] public List<float> masses;
+    [HideInInspector] public List<Vector3> velocities;
 
     // Use this for initialization
     void Awake ()
@@ -20,6 +22,7 @@ public class GravitySystem : MonoBehaviour {
             nbodyObjs.Add(n.gameObject);
             masses.Add(n.mass);
             velocities.Add(n.velocity);
+            types.Add(n.type);
         }
 
         int count = 0;
@@ -33,7 +36,7 @@ public class GravitySystem : MonoBehaviour {
             rb.mass = masses[count];
             rb.AddForce(velocities[count]);
 
-            if (n.name == "Sun")
+            if (n.name == "Star")
             {
                 rb.isKinematic = true;
             }
@@ -60,7 +63,9 @@ public class GravitySystem : MonoBehaviour {
                     Vector3 gravityVector = gravityDirection * newtonsLawGravity(nRb.mass, iRb.mass, distance);
 
                     n.transform.Find("Shape").gameObject.transform.GetComponent<Rigidbody>().AddForce(gravityVector);
-                    Debug.Log(gravityVector);
+
+                    GameObject child = n.transform.Find("Shape").gameObject;
+                    //Debug.Log(gravityVector);
                 }
             }
         }
