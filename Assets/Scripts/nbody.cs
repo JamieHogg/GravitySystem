@@ -8,6 +8,8 @@ public class nbody : MonoBehaviour {
     public float mass;
     public Vector3 velocity;
 
+    public GameObject orbitObject;
+
     float getMass()
     {
         return mass;

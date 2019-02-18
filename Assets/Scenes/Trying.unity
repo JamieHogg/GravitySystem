@@ -175,6 +175,16 @@ Prefab:
       propertyPath: mass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114345828682336270, guid: 4362dd1629cdd9c4fa0f1e8b72a20864,
+        type: 2}
+      propertyPath: orbitObject
+      value: 
+      objectReference: {fileID: 495709325}
+    - target: {fileID: 114345828682336270, guid: 4362dd1629cdd9c4fa0f1e8b72a20864,
+        type: 2}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4362dd1629cdd9c4fa0f1e8b72a20864, type: 2}
   m_IsPrefabAsset: 0
@@ -236,9 +246,24 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114345828682336270, guid: 4362dd1629cdd9c4fa0f1e8b72a20864,
+        type: 2}
+      propertyPath: orbitObject
+      value: 
+      objectReference: {fileID: 495709325}
+    - target: {fileID: 114345828682336270, guid: 4362dd1629cdd9c4fa0f1e8b72a20864,
+        type: 2}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4362dd1629cdd9c4fa0f1e8b72a20864, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &495709325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1785467961952174, guid: cf9f36accf166d548a79583dd0556c71,
+    type: 2}
+  m_PrefabInternal: {fileID: 626652524}
 --- !u!1001 &626652524
 Prefab:
   m_ObjectHideFlags: 0
@@ -286,6 +311,11 @@ Prefab:
     - target: {fileID: 1785467961952174, guid: cf9f36accf166d548a79583dd0556c71, type: 2}
       propertyPath: m_Name
       value: Star
+      objectReference: {fileID: 0}
+    - target: {fileID: 114002916193199250, guid: cf9f36accf166d548a79583dd0556c71,
+        type: 2}
+      propertyPath: orbitObject
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf9f36accf166d548a79583dd0556c71, type: 2}
@@ -383,9 +413,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0183d10011d59b4b99c4c73f9143b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   mass: 1
   velocity: {x: 0, y: 40, z: -40}
+  orbitObject: {fileID: 495709325}
 --- !u!4 &1118082682
 Transform:
   m_ObjectHideFlags: 0
@@ -518,11 +549,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityConstant: 1
+  trailMatte: {fileID: 2100000, guid: a7d8f0a1703622d469d61a53153dc00d, type: 2}
   nbodyObjs: []
   types: 
   masses: []
   velocities: []
-  trailMatte: {fileID: 2100000, guid: a7d8f0a1703622d469d61a53153dc00d, type: 2}
+  orbitObjects: []
 --- !u!4 &1713126385
 Transform:
   m_ObjectHideFlags: 0

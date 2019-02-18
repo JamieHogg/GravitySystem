@@ -12,6 +12,8 @@ public class GravitySystem : MonoBehaviour {
     [HideInInspector] public List<float> masses;
     [HideInInspector] public List<Vector3> velocities;
 
+    [HideInInspector] public List<GameObject> orbitObjects;
+
     // Use this for initialization
     void Awake ()
     {
@@ -23,6 +25,7 @@ public class GravitySystem : MonoBehaviour {
             masses.Add(n.mass);
             velocities.Add(n.velocity);
             types.Add(n.type);
+            orbitObjects.Add(n.orbitObject);
         }
 
         int count = 0;
@@ -43,10 +46,11 @@ public class GravitySystem : MonoBehaviour {
             count++;
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
+        /*
         foreach (GameObject n in nbodyObjs)
         {
             Rigidbody nRb = getChildRb(n);
@@ -68,6 +72,28 @@ public class GravitySystem : MonoBehaviour {
                     //Debug.Log(gravityVector);
                 }
             }
+        }
+        */
+        int count = 0;
+        foreach (GameObject n in nbodyObjs)
+        {
+            if (orbitObjects[count] != null)
+            {
+                Rigidbody nRb = getChildRb(n);
+                Rigidbody tRb = getChildRb(orbitObjects[count]);
+
+                Vector3 difference = tRb.transform.position - nRb.transform.position;
+
+                float distance = difference.magnitude;
+                Vector3 gravityDirection = difference.normalized;
+
+                Vector3 gravityVector = gravityDirection * newtonsLawGravity(nRb.mass, tRb.mass, distance);
+
+                n.transform.Find("Shape").gameObject.transform.GetComponent<Rigidbody>().AddForce(gravityVector);
+
+                GameObject child = n.transform.Find("Shape").gameObject;
+            }
+            count++;
         }
     }
 
