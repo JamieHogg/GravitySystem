@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravitySystem : MonoBehaviour {
+public class GravitySystem : MonoBehaviour
+{
 
     public float gravityConstant;
     public Material trailMatte;
@@ -11,11 +12,13 @@ public class GravitySystem : MonoBehaviour {
     [HideInInspector] public List<nbodyType> types;
     [HideInInspector] public List<float> masses;
     [HideInInspector] public List<Vector3> velocities;
-
     [HideInInspector] public List<GameObject> orbitObjects;
 
+    public List<Vector3> initialDirections;
+    public List<Vector3> initialVectors;
+
     // Use this for initialization
-    void Awake ()
+    void Awake()
     {
         nbody[] nbodys = GameObject.FindObjectsOfType<nbody>();
 
@@ -45,6 +48,16 @@ public class GravitySystem : MonoBehaviour {
             }
             count++;
         }
+    }
+
+    void Start()
+    {
+        int verts = 100;
+        LineRenderer lineRenderer = nbodyObjs[1].AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.positionCount = verts;
+        lineRenderer.SetPositions(DrawTraject(1, verts));
     }
 
     // Update is called once per frame
@@ -100,7 +113,7 @@ public class GravitySystem : MonoBehaviour {
     float newtonsLawGravity(float mass1, float mass2, float distance)
     {
         float force = gravityConstant * ((mass1 * mass2) / Mathf.Pow(distance, 2));
-            return force;
+        return force;
     }
 
     Rigidbody getChildRb(GameObject obj)
@@ -116,5 +129,40 @@ public class GravitySystem : MonoBehaviour {
         trail.startWidth = 0.1f;
         trail.endWidth = 0f;
         trail.time = 100;
+    }
+
+    Vector3 getGravity(int num)
+    {
+        Rigidbody nRb = getChildRb(nbodyObjs[num]);
+        Rigidbody tRb = getChildRb(orbitObjects[num]);
+
+        Vector3 difference = tRb.transform.position - nRb.transform.position;
+
+        float distance = difference.magnitude;
+        Vector3 gravityDirection = difference.normalized;
+
+        Vector3 gravityVector = gravityDirection * newtonsLawGravity(nRb.mass, tRb.mass, distance);
+        return gravityVector;
+    }
+
+    Vector3[] DrawTraject(int num, int verts)
+    {
+        Vector3[] positions = new Vector3[verts];
+
+        Vector3 pos = nbodyObjs[num].transform.position;
+        Vector3 vel = velocities[num];
+
+        GameObject orbitedPlanet = orbitObjects[num];
+
+        Vector3 grav = getGravity(num);
+
+        for (int i = 0; i < verts; i++)
+        {
+            positions[i] = pos;
+            vel = vel + grav * Time.fixedDeltaTime;
+            pos = pos + vel * Time.fixedDeltaTime;
+            grav = getGravity(num);
+        }
+        return positions;
     }
 }
