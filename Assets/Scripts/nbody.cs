@@ -10,9 +10,14 @@ public class nbody : MonoBehaviour {
 
     public GameObject orbitObject;
 
-    float getMass()
+    public float getMass()
     {
         return mass;
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return velocity;
     }
 
     void OnDrawGizmosSelected()

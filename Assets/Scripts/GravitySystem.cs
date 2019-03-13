@@ -50,57 +50,16 @@ public class GravitySystem : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        int verts = 100;
-        LineRenderer lineRenderer = nbodyObjs[1].AddComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
-        lineRenderer.positionCount = verts;
-        lineRenderer.SetPositions(DrawTraject(1, verts));
-    }
-
     // Update is called once per frame
     void Update()
     {
-        /*
-        foreach (GameObject n in nbodyObjs)
-        {
-            Rigidbody nRb = getChildRb(n);
-            foreach (GameObject i in nbodyObjs)
-            {
-                if (n != i)
-                {
-                    Rigidbody iRb = getChildRb(i);
-                    Vector3 difference = iRb.transform.position - nRb.transform.position;
-
-                    float distance = difference.magnitude;
-                    Vector3 gravityDirection = difference.normalized;
-
-                    Vector3 gravityVector = gravityDirection * newtonsLawGravity(nRb.mass, iRb.mass, distance);
-
-                    n.transform.Find("Shape").gameObject.transform.GetComponent<Rigidbody>().AddForce(gravityVector);
-
-                    GameObject child = n.transform.Find("Shape").gameObject;
-                    //Debug.Log(gravityVector);
-                }
-            }
-        }
-        */
         int count = 0;
         foreach (GameObject n in nbodyObjs)
         {
             if (orbitObjects[count] != null)
             {
-                Rigidbody nRb = getChildRb(n);
-                Rigidbody tRb = getChildRb(orbitObjects[count]);
-
-                Vector3 difference = tRb.transform.position - nRb.transform.position;
-
-                float distance = difference.magnitude;
-                Vector3 gravityDirection = difference.normalized;
-
-                Vector3 gravityVector = gravityDirection * newtonsLawGravity(nRb.mass, tRb.mass, distance);
+                Vector3 gravityVector = getGravityVector(n, n.transform.position, 
+                    orbitObjects[count], orbitObjects[count].transform.position);
 
                 n.transform.Find("Shape").gameObject.transform.GetComponent<Rigidbody>().AddForce(gravityVector);
 
@@ -131,38 +90,19 @@ public class GravitySystem : MonoBehaviour
         trail.time = 100;
     }
 
-    Vector3 getGravity(int num)
+    Vector3 getGravityVector(GameObject obj, Vector3 objPos, GameObject targetObj, Vector3 targetPos)
     {
-        Rigidbody nRb = getChildRb(nbodyObjs[num]);
-        Rigidbody tRb = getChildRb(orbitObjects[num]);
+        Rigidbody rb = getChildRb(obj);
+        Rigidbody tRb = getChildRb(targetObj);
 
-        Vector3 difference = tRb.transform.position - nRb.transform.position;
+        //Vector3 difference = tRb.transform.position - rb.transform.position;
+        Vector3 difference = targetPos - objPos;
 
         float distance = difference.magnitude;
         Vector3 gravityDirection = difference.normalized;
 
-        Vector3 gravityVector = gravityDirection * newtonsLawGravity(nRb.mass, tRb.mass, distance);
+        float force = newtonsLawGravity(rb.mass, tRb.mass, distance);
+        Vector3 gravityVector = gravityDirection * force;
         return gravityVector;
-    }
-
-    Vector3[] DrawTraject(int num, int verts)
-    {
-        Vector3[] positions = new Vector3[verts];
-
-        Vector3 pos = nbodyObjs[num].transform.position;
-        Vector3 vel = velocities[num];
-
-        GameObject orbitedPlanet = orbitObjects[num];
-
-        Vector3 grav = getGravity(num);
-
-        for (int i = 0; i < verts; i++)
-        {
-            positions[i] = pos;
-            vel = vel + grav * Time.fixedDeltaTime;
-            pos = pos + vel * Time.fixedDeltaTime;
-            grav = getGravity(num);
-        }
-        return positions;
     }
 }
