@@ -6,15 +6,26 @@ using UnityEngine;
 public class Orbiting : MonoBehaviour {
 
     LineRenderer lr;
+    GravitySystem gravitySystem;
 
     public GameObject orbitTarget;
+    private GameObject child;
 
+    [Range(0, 20)]
     public float semiMajorAxisA;
     //public float semiMajorAxisB;
     [Range(0, 1)]
     public float eccentricity;
     [Range(0, 100)]
     public int progress;
+    [Range(0, 360)]
+    public int speed;
+
+    [Range(0, 360)]
+    public int rotateZ;
+
+    [Range(0, 5)]
+    public float maxSpeed;
 
     private int length = 100;
     public Vector3[] points;
@@ -25,14 +36,25 @@ public class Orbiting : MonoBehaviour {
         CalculateEllipse();
 
         this.transform.position = points[progress];
+        child = this.transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
     void Update ()
     {
-        //ActualOrbit();
         CalculateEllipse();
-        this.transform.position = points[progress];
+
+        Vector3 dirNormalized = (points[progress+1] - child.transform.position).normalized;
+        if (Vector3.Distance(child.transform.position, points[progress+1]) < 0.1f)
+        {
+            progress++;
+            if (progress == 100)
+            {
+                progress = 0;
+            }
+        }
+        child.transform.position = child.transform.position + dirNormalized * maxSpeed * Time.deltaTime;
+        //child.transform.position = points[progress];
     }
 
     void CalculateEllipse()
@@ -46,7 +68,7 @@ public class Orbiting : MonoBehaviour {
         float f = ae;
         float ab = a + ae;
         float b = (Mathf.Sqrt((a * a) - (f * f)));
-        Debug.Log(b);
+        //Debug.Log(b);
 
         points = new Vector3[length + 1];
         for (int i = 0; i < length; i++)
@@ -65,10 +87,10 @@ public class Orbiting : MonoBehaviour {
 
     void ActualOrbit()
     {
-        int setSpeed = 4;
-        float speed = Time.deltaTime * 1000 * setSpeed;
-
-        this.transform.position = Vector3.Lerp(this.transform.position, points[progress + 1], speed);
-        progress+=  1;
+        progress++;
+        if (progress == 100)
+        {
+            progress = 0;
+        }
     }
 }

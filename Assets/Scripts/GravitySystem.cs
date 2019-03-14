@@ -58,8 +58,7 @@ public class GravitySystem : MonoBehaviour
         {
             if (orbitObjects[count] != null)
             {
-                Vector3 gravityVector = getGravityVector(n, n.transform.position, 
-                    orbitObjects[count], orbitObjects[count].transform.position);
+                Vector3 gravityVector = getGravityVector(n, orbitObjects[count]);
 
                 n.transform.Find("Shape").gameObject.transform.GetComponent<Rigidbody>().AddForce(gravityVector);
 
@@ -90,13 +89,13 @@ public class GravitySystem : MonoBehaviour
         trail.time = 100;
     }
 
-    Vector3 getGravityVector(GameObject obj, Vector3 objPos, GameObject targetObj, Vector3 targetPos)
+    public Vector3 getGravityVector(GameObject obj, GameObject targetObj)
     {
         Rigidbody rb = getChildRb(obj);
         Rigidbody tRb = getChildRb(targetObj);
 
-        //Vector3 difference = tRb.transform.position - rb.transform.position;
-        Vector3 difference = targetPos - objPos;
+        Vector3 difference = tRb.transform.position - rb.transform.position;
+        //Vector3 difference = targetPos - objPos;
 
         float distance = difference.magnitude;
         Vector3 gravityDirection = difference.normalized;
