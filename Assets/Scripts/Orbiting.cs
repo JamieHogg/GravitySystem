@@ -18,8 +18,6 @@ public class Orbiting : MonoBehaviour {
     public float eccentricity;
     [Range(0, 100)]
     public int progress;
-    [Range(0, 360)]
-    public int speed;
 
     [Range(0, 360)]
     public int rotateZ;
@@ -37,6 +35,8 @@ public class Orbiting : MonoBehaviour {
 
         this.transform.position = points[progress];
         child = this.transform.GetChild(0).gameObject;
+
+        //maxSpeed = (child.GetComponent<Rigidbody>().mass + orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass);
     }
 
     // Update is called once per frame
@@ -54,6 +54,9 @@ public class Orbiting : MonoBehaviour {
             }
         }
         child.transform.position = child.transform.position + dirNormalized * maxSpeed * Time.deltaTime;
+
+        float distance = Vector3.Distance(child.transform.position, orbitTarget.transform.GetChild(0).transform.position);
+        maxSpeed = newtonsLawGravity(child.GetComponent<Rigidbody>().mass, orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass, distance);
         //child.transform.position = points[progress];
     }
 
@@ -92,5 +95,11 @@ public class Orbiting : MonoBehaviour {
         {
             progress = 0;
         }
+    }
+
+    float newtonsLawGravity(float mass1, float mass2, float distance)
+    {
+        float force = 1 * ((mass1 * mass2) / Mathf.Pow(distance, 2));
+        return force;
     }
 }

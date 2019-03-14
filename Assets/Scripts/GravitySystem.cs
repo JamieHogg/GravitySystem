@@ -37,8 +37,8 @@ public class GravitySystem : MonoBehaviour
             GameObject child = n.transform.Find("Shape").gameObject;
             addTrail(child);
 
-            Rigidbody rb = child.AddComponent<Rigidbody>();
-            rb.useGravity = false;
+            Rigidbody rb = child.GetComponent<Rigidbody>();
+            //rb.useGravity = false;
             rb.mass = masses[count];
             rb.AddForce(velocities[count]);
 
