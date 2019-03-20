@@ -20,6 +20,12 @@ public class Orbiting : MonoBehaviour {
     public int progress;
 
     [Range(0, 360)]
+    public int rotateX;
+
+    [Range(0, 360)]
+    public int rotateY;
+
+    [Range(0, 360)]
     public int rotateZ;
 
     [Range(0, 5)]
@@ -80,6 +86,10 @@ public class Orbiting : MonoBehaviour {
             float x = xt + Mathf.Sin(angle) * (a + ae);
             float y = yt + Mathf.Cos(angle) * b;
             points[i] = new Vector3(x + (ae*2), y, 0f);
+
+            Quaternion rotation = Quaternion.Euler(rotateX, rotateY, rotateZ);
+            Matrix4x4 m = Matrix4x4.Rotate(rotation);
+            points[i] = m.MultiplyPoint3x4(points[i]);
         }
         points[length] = points[0];
 
