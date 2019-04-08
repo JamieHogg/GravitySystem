@@ -60,7 +60,7 @@ public class GravitySystem : MonoBehaviour
             {
                 Vector3 gravityVector = getGravityVector(n, orbitObjects[count]);
 
-                n.transform.Find("Shape").gameObject.transform.GetComponent<Rigidbody>().AddForce(gravityVector);
+                n.transform.GetChild(0).GetComponent<Rigidbody>().AddForce(gravityVector);
 
                 GameObject child = n.transform.Find("Shape").gameObject;
             }

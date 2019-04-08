@@ -19,12 +19,4 @@ public class nbody : MonoBehaviour {
     {
         return velocity;
     }
-
-    void OnDrawGizmosSelected()
-    {
-        GameObject child = this.transform.Find("Shape").gameObject;
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(child.transform.position, velocity);
-    }
 }

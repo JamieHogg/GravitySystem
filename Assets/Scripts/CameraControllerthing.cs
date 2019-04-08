@@ -37,7 +37,8 @@ public class CameraControllerthing : MonoBehaviour
         {
             child.Add(n.transform.Find("Shape").gameObject);
         }
-        cameraTarget = child[0];
+        cameraTarget = GameObject.Find("Star").transform.GetChild(0).gameObject;
+        //cameraTarget = GameObject.Find("Star").transform.GetChild(0).gameObject;
 
         lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y, cameraTarget.transform.position.z - offsetDistance);
         offset = lastPosition;
@@ -83,22 +84,22 @@ public class CameraControllerthing : MonoBehaviour
 
     void normalCamera()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             rotateLeft = 1;
             horizontal = true;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             rotateLeft = -1;
             horizontal = true;
         }
-        else if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKey(KeyCode.UpArrow))
         {
             rotateUp = -1;
             verticle = true;
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             rotateUp = 1;
             verticle = true;

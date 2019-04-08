@@ -2,5 +2,7 @@
     {
         Star,
         Planet,
-        Moon
+        Moon,
+        Ship,
+        Asteroid
     }
