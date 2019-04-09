@@ -20,15 +20,17 @@ public class Orbiting : MonoBehaviour {
     public bool progressDirection;
 
     [Range(0, 360)]
-    public int rotateX;
+    public float rotateX;
 
     [Range(0, 360)]
-    public int rotateY;
+    public float rotateY;
 
     [Range(0, 360)]
-    public int rotateZ;
+    public float rotateZ;
 
     public float speed;
+
+    public bool move = false;
 
     private int length = 100;
     public Vector3[] points;
@@ -40,6 +42,9 @@ public class Orbiting : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         lr = GetComponent<LineRenderer>();
+
+        orbitTarget = GameObject.FindGameObjectWithTag("Star");
+
         CalculateEllipse();
 
         this.transform.position = points[progress];
@@ -52,35 +57,18 @@ public class Orbiting : MonoBehaviour {
     void Update()
     {
         CalculateEllipse();
-        if (!progressDirection)
-        {
-            dirNormalized = (points[progress + 1] - child.transform.position).normalized;
+        this.transform.parent = orbitTarget.transform.GetChild(0).transform;
 
-            if (Vector3.Distance(child.transform.position, points[progress + 1]) < 0.1f)
-            {
-                progress++;
-                if (progress == 100)
-                {
-                    progress = 0;
-                }
-            }
+
+        if (move)
+        {
+            movement();
         }
-        else if (progressDirection)
+        else
         {
-            dirNormalized = (points[progress - 1] - child.transform.position).normalized;
-
-            if (Vector3.Distance(child.transform.position, points[progress - 1]) < 0.1f)
-            {
-                progress--;
-                if (progress == 0)
-                {
-                    progress = 100;
-                }
-            }
+            child.transform.position = points[progress];
         }
 
-
-        child.transform.position += dirNormalized * speed * Time.deltaTime;
         //child.transform.position = Vector3.Lerp(child.transform.position, child.transform.position + dirNormalized, speed * Time.deltaTime);
 
         float distance = Vector3.Distance(child.transform.position, orbitTarget.transform.GetChild(0).transform.position);
@@ -132,5 +120,36 @@ public class Orbiting : MonoBehaviour {
     {
         float force = 1 * ((mass1 * mass2) / Mathf.Pow(distance, 2));
         return force;
+    }
+
+    void movement()
+    {
+        if (!progressDirection)
+        {
+            dirNormalized = (points[progress + 1] - child.transform.position).normalized;
+
+            if (Vector3.Distance(child.transform.position, points[progress + 1]) < 0.1f)
+            {
+                progress++;
+                if (progress == 100)
+                {
+                    progress = 0;
+                }
+            }
+        }
+        else if (progressDirection)
+        {
+            dirNormalized = (points[progress - 1] - child.transform.position).normalized;
+
+            if (Vector3.Distance(child.transform.position, points[progress - 1]) < 0.1f)
+            {
+                progress--;
+                if (progress == 0)
+                {
+                    progress = 100;
+                }
+            }
+        }
+        child.transform.position += dirNormalized * speed * Time.deltaTime;
     }
 }
