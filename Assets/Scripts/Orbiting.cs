@@ -126,28 +126,30 @@ public class Orbiting : MonoBehaviour {
     {
         if (!progressDirection)
         {
+            if (progress == 100)
+            {
+                progress = 0;
+            }
+
             dirNormalized = (points[progress + 1] - child.transform.position).normalized;
 
             if (Vector3.Distance(child.transform.position, points[progress + 1]) < 0.1f)
             {
                 progress++;
-                if (progress == 100)
-                {
-                    progress = 0;
-                }
             }
         }
         else if (progressDirection)
         {
+            if (progress == 0)
+            {
+                progress = 100;
+            }
+
             dirNormalized = (points[progress - 1] - child.transform.position).normalized;
 
             if (Vector3.Distance(child.transform.position, points[progress - 1]) < 0.1f)
             {
                 progress--;
-                if (progress == 0)
-                {
-                    progress = 100;
-                }
             }
         }
         child.transform.position += dirNormalized * speed * Time.deltaTime;

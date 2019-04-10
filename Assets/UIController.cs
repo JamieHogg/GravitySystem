@@ -20,23 +20,44 @@ public class UIController : MonoBehaviour {
 
     public Material[] mattes;
 
+    public Slider sizeSlider;
+
     public int numberOfPlanets = 0;
     public int numberOfMoons = 0;
+    public int total = 0;
+
+    private bool moving;
 
     void Update()
     {
         if (dropdown.options.Count == 0)
         {
-            foreach (GameObject m in mainUI)
+            for (int i = 1; i < mainUI.Length; i++)
             {
-                m.SetActive(false);
+                mainUI[i].SetActive(false);
             }
         }
         else
         {
-            foreach (GameObject m in mainUI)
+            if (!moving)
             {
-                m.SetActive(true);
+                for (int i = 2; i < mainUI.Length; i++)
+                {
+                    mainUI[i].SetActive(true);
+                }
+
+                if (planets[dropdown.value].tag == "Moon")
+                {
+                    sizeSlider.maxValue = 1;
+                    sizeSlider.minValue = 0.5f;
+                    mainUI[1].SetActive(false);
+                }
+                else if (planets[dropdown.value].tag == "Planet")
+                {
+                    sizeSlider.maxValue = 20;
+                    sizeSlider.minValue = 1;
+                    mainUI[1].SetActive(true);
+                }
             }
         }
     }
@@ -44,9 +65,13 @@ public class UIController : MonoBehaviour {
     public void spawnPlanet()
     {
         GameObject spawned = Instantiate(planet, Vector3.zero, Quaternion.identity);
-        spawned.name = "planet " + numberOfPlanets;
-        planets.Add(spawned);
+
         numberOfPlanets++;
+        total++;
+
+        string target = spawned.GetComponent<Orbiting>().orbitTarget.name;
+        spawned.name = "planet " + numberOfPlanets + ": " + target;
+        planets.Add(spawned);
 
         data = new Dropdown.OptionData();
         data.text = spawned.name;
@@ -57,29 +82,55 @@ public class UIController : MonoBehaviour {
         {
             dropdown.options.Add(d);
         }
-        dropdown.value = numberOfPlanets;
+        dropdown.value = total;
     }
 
     public void spawnMoon()
     {
         GameObject spawned = Instantiate(moon, Vector3.zero, Quaternion.identity);
-        spawned.name = "moon " + numberOfMoons;
-        moons.Add(spawned);
+
         numberOfMoons++;
+        total++;
 
         spawned.GetComponent<Orbiting>().orbitTarget = planets[dropdown.value];
+        string target = spawned.GetComponent<Orbiting>().orbitTarget.name;
+        spawned.name = "Moon " + numberOfMoons + ": " + target;
+        planets.Add(spawned);
 
-        //data = new Dropdown.OptionData();
-        //data.text = spawned.name;
-        //dropdata.Add(data);
+        data = new Dropdown.OptionData();
+        data.text = spawned.name;
+        dropdata.Add(data);
 
-        //dropdown.options.Clear();
-        //foreach (Dropdown.OptionData d in dropdata)
-        //{
-        //    dropdown.options.Add(d);
-        //}
-        //dropdown.value = numberOfPlanets;
+        dropdown.options.Clear();
+        foreach (Dropdown.OptionData d in dropdata)
+        {
+            dropdown.options.Add(d);
+        }
+        dropdown.value = total;
     }
+
+
+
+    //public void spawnMoon()
+    //{
+    //    GameObject spawned = Instantiate(moon, Vector3.zero, Quaternion.identity);
+    //    spawned.name = "moon " + numberOfMoons;
+    //    moons.Add(spawned);
+    //    numberOfMoons++;
+
+    //    spawned.GetComponent<Orbiting>().orbitTarget = planets[dropdown.value];
+
+    //    data = new Dropdown.OptionData();
+    //    data.text = spawned.name;
+    //    dropdata.Add(data);
+
+    //    dropdown.options.Clear();
+    //    foreach (Dropdown.OptionData d in dropdata)
+    //    {
+    //        dropdown.options.Add(d);
+    //    }
+    //    dropdown.value = numberOfPlanets;
+    //}
 
     public void changeSize(float num)
     {
@@ -92,6 +143,10 @@ public class UIController : MonoBehaviour {
     public void changeEccentricity(float num)
     {
         planets[dropdown.value].GetComponent<Orbiting>().eccentricity = num;
+    }
+    public void changeProgress(float num)
+    {
+        planets[dropdown.value].GetComponent<Orbiting>().progress = (int)num;
     }
 
     public void changeRotationX(float num)
@@ -135,5 +190,12 @@ public class UIController : MonoBehaviour {
         {
             m.GetComponent<Orbiting>().move = !m.GetComponent<Orbiting>().move;
         }
+
+        for (int i = 0; i < mainUI.Length - 1; i++)
+        {
+            mainUI[i].SetActive(moving);
+        }
+
+        moving = !moving;
     }
 }
