@@ -50,7 +50,7 @@ public class GravitySystemMKII : MonoBehaviour
         gravity();
     }
 
-    float newtonsLawGravity(float mass1, float mass2, float distance)
+    public float newtonsLawGravity(float mass1, float mass2, float distance)
     {
         float force = gravityConstant * ((mass1 * mass2) / Mathf.Pow(distance, 2));
         return force;
@@ -109,5 +109,10 @@ public class GravitySystemMKII : MonoBehaviour
             }
             count++;
         }
+    }
+
+    public void changeGravityConstant(float num)
+    {
+        gravityConstant = num;
     }
 }

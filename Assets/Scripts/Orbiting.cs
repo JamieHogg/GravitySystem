@@ -72,7 +72,9 @@ public class Orbiting : MonoBehaviour {
         //child.transform.position = Vector3.Lerp(child.transform.position, child.transform.position + dirNormalized, speed * Time.deltaTime);
 
         float distance = Vector3.Distance(child.transform.position, orbitTarget.transform.GetChild(0).transform.position);
-        speed = newtonsLawGravity(child.GetComponent<Rigidbody>().mass, orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass, distance);
+        speed = GameObject.Find("GravitySystem").GetComponent<GravitySystemMKII>().newtonsLawGravity(child.GetComponent<Rigidbody>().mass,
+            orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass, distance);
+        //speed = newtonsLawGravity(child.GetComponent<Rigidbody>().mass, orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass, distance);
     }
 
     void CalculateEllipse()
