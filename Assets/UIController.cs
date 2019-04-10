@@ -48,15 +48,17 @@ public class UIController : MonoBehaviour {
 
                 if (planets[dropdown.value].tag == "Moon")
                 {
-                    sizeSlider.maxValue = 1;
-                    sizeSlider.minValue = 0.5f;
+                    //sizeSlider.maxValue = 1;
+                    //sizeSlider.minValue = 0.5f;
                     mainUI[1].SetActive(false);
+                    mainUI[2].SetActive(false);
                 }
                 else if (planets[dropdown.value].tag == "Planet")
                 {
-                    sizeSlider.maxValue = 20;
-                    sizeSlider.minValue = 1;
+                    //sizeSlider.maxValue = 20;
+                    //sizeSlider.minValue = 1;
                     mainUI[1].SetActive(true);
+                    mainUI[2].SetActive(true);
                 }
             }
         }

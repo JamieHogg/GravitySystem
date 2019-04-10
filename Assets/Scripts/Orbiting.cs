@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class Orbiting : MonoBehaviour {
+public class Orbiting : MonoBehaviour
+{
 
     LineRenderer lr;
 
@@ -40,7 +41,8 @@ public class Orbiting : MonoBehaviour {
 
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         lr = GetComponent<LineRenderer>();
 
         orbitTarget = GameObject.FindGameObjectWithTag("Star");
@@ -56,9 +58,8 @@ public class Orbiting : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        CalculateEllipse();
         this.transform.parent = orbitTarget.transform.GetChild(0).transform;
-
+        CalculateEllipse();
 
         if (move)
         {
@@ -82,7 +83,7 @@ public class Orbiting : MonoBehaviour {
         float xt = orbitTarget.transform.GetChild(0).transform.position.x;
         float yt = orbitTarget.transform.GetChild(0).transform.position.y;
 
-        float a = semiMajorAxisA;
+        float a = hillSphereValue();
         float ae = semiMajorAxisA * eccentricity;
 
         float f = ae;
@@ -93,9 +94,9 @@ public class Orbiting : MonoBehaviour {
         for (int i = 0; i < length; i++)
         {
             float angle = ((float)i / (float)length) * 360 * Mathf.Deg2Rad;
-            float x = Mathf.Sin(angle) * (a + ae);
+            float x = Mathf.Sin(angle) * (ab);
             float y = Mathf.Cos(angle) * b;
-            points[i] = new Vector3(x + (ae*2), y, 0f);
+            points[i] = new Vector3(x + (ae * 2), y, 0f);
 
             Quaternion rotation = Quaternion.Euler(rotateX, rotateY, rotateZ);
             Matrix4x4 m = Matrix4x4.Rotate(rotation);
@@ -155,5 +156,18 @@ public class Orbiting : MonoBehaviour {
             }
         }
         child.transform.position += dirNormalized * speed * Time.deltaTime;
+    }
+
+    float hillSphereValue()
+    {
+        if (transform.tag == "Moon")
+        {
+            if (orbitTarget.tag == "Planet")
+            {
+                float hillSphere = GameObject.Find("GravitySystem").GetComponent<GravitySystemMKII>().hillSphere(orbitTarget.GetComponent<Orbiting>().semiMajorAxisA, this.transform.GetChild(0).GetComponent<Rigidbody>().mass, orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass);
+                semiMajorAxisA = hillSphere /5;
+            }
+        }
+        return semiMajorAxisA;
     }
 }

@@ -115,4 +115,9 @@ public class GravitySystemMKII : MonoBehaviour
     {
         gravityConstant = num;
     }
+
+    public float hillSphere(float semi, float mass1, float mass2)
+    {
+        return semi * Mathf.Pow((mass2 / 3 * mass1), 1f / 3f);
+    }
 }
