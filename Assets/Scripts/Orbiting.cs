@@ -164,7 +164,9 @@ public class Orbiting : MonoBehaviour
         {
             if (orbitTarget.tag == "Planet")
             {
-                float hillSphere = GameObject.Find("GravitySystem").GetComponent<GravitySystemMKII>().hillSphere(orbitTarget.GetComponent<Orbiting>().semiMajorAxisA, this.transform.GetChild(0).GetComponent<Rigidbody>().mass, orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass);
+                float hillSphere = GameObject.Find("GravitySystem").GetComponent<GravitySystemMKII>().hillSphere(orbitTarget.GetComponent<Orbiting>().semiMajorAxisA,
+                    orbitTarget.transform.GetComponent<Orbiting>().orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass,
+                    orbitTarget.transform.GetChild(0).GetComponent<Rigidbody>().mass);
                 semiMajorAxisA = hillSphere /5;
             }
         }

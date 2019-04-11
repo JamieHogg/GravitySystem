@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a07fadb24ea940240afba3afc1a692cc, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.23236784, g: 0.23553982, b: 0.27230316, a: 1}
+  m_IndirectSpecularColor: {r: 0.053151503, g: 0.15094265, b: 0.19470885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -171,7 +171,7 @@ SphereCollider:
   m_GameObject: {fileID: 123697558}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -327,7 +327,7 @@ SphereCollider:
   m_GameObject: {fileID: 479424330}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -423,7 +423,7 @@ SphereCollider:
   m_GameObject: {fileID: 511536672}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -499,11 +499,11 @@ GameObject:
   - component: {fileID: 546792158}
   m_Layer: 0
   m_Name: Moon
-  m_TagString: Untagged
+  m_TagString: Moon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &546792158
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -616,6 +616,7 @@ MonoBehaviour:
   rotateY: 44
   rotateZ: 153
   speed: 0
+  move: 0
   points: []
 --- !u!4 &546792160
 Transform:
@@ -661,7 +662,7 @@ SphereCollider:
   m_GameObject: {fileID: 603865426}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -781,6 +782,10 @@ Prefab:
       propertyPath: m_Name
       value: Star
       objectReference: {fileID: 0}
+    - target: {fileID: 1785467961952174, guid: cf9f36accf166d548a79583dd0556c71, type: 2}
+      propertyPath: m_TagString
+      value: Star
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf9f36accf166d548a79583dd0556c71, type: 2}
   m_IsPrefabAsset: 0
@@ -842,7 +847,7 @@ SphereCollider:
   m_GameObject: {fileID: 658137151}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -999,7 +1004,7 @@ SphereCollider:
   m_GameObject: {fileID: 854933413}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1120,7 +1125,7 @@ SphereCollider:
   m_GameObject: {fileID: 932642043}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1182,7 +1187,7 @@ GameObject:
   - component: {fileID: 1076264922}
   m_Layer: 0
   m_Name: Planet (4)
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1207,6 +1212,7 @@ MonoBehaviour:
   rotateY: 307
   rotateZ: 227
   speed: 0
+  move: 1
   points: []
 --- !u!120 &1076264922
 LineRenderer:
@@ -1343,11 +1349,11 @@ GameObject:
   - component: {fileID: 1126161773}
   m_Layer: 0
   m_Name: Moon (1)
-  m_TagString: Untagged
+  m_TagString: Moon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &1126161773
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1460,6 +1466,7 @@ MonoBehaviour:
   rotateY: 279
   rotateZ: 39
   speed: 0
+  move: 0
   points: []
 --- !u!4 &1126161775
 Transform:
@@ -1631,7 +1638,7 @@ SphereCollider:
   m_GameObject: {fileID: 1216411382}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1693,7 +1700,7 @@ GameObject:
   - component: {fileID: 1219073162}
   m_Layer: 0
   m_Name: Planet (5)
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1718,6 +1725,7 @@ MonoBehaviour:
   rotateY: 17
   rotateZ: 70
   speed: 0
+  move: 1
   points: []
 --- !u!120 &1219073162
 LineRenderer:
@@ -1855,7 +1863,7 @@ GameObject:
   - component: {fileID: 1289329957}
   m_Layer: 0
   m_Name: Planet (6)
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1972,6 +1980,7 @@ MonoBehaviour:
   rotateY: 297
   rotateZ: 93
   speed: 0
+  move: 1
   points: []
 --- !u!4 &1289329959
 Transform:
@@ -2058,11 +2067,11 @@ GameObject:
   - component: {fileID: 1666455936}
   m_Layer: 0
   m_Name: Moon (3)
-  m_TagString: Untagged
+  m_TagString: Moon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &1666455936
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -2175,6 +2184,7 @@ MonoBehaviour:
   rotateY: 80
   rotateZ: 289
   speed: 0
+  move: 0
   points: []
 --- !u!4 &1666455938
 Transform:
@@ -2331,7 +2341,7 @@ MonoBehaviour:
   child: []
   cameraTarget: {fileID: 1194454652}
   rotateSpeed: 3
-  offsetDistance: 10
+  offsetDistance: 4
   smoothing: 100
   cameraRotation: 0
 --- !u!1 &1900747950
@@ -2347,11 +2357,11 @@ GameObject:
   - component: {fileID: 1900747951}
   m_Layer: 0
   m_Name: Moon (2)
-  m_TagString: Untagged
+  m_TagString: Moon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &1900747951
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -2464,6 +2474,7 @@ MonoBehaviour:
   rotateY: 238
   rotateZ: 39
   speed: 0
+  move: 0
   points: []
 --- !u!4 &1900747953
 Transform:
@@ -2514,7 +2525,7 @@ GameObject:
   - component: {fileID: 2097051475}
   m_Layer: 0
   m_Name: Planet (3)
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2539,6 +2550,7 @@ MonoBehaviour:
   rotateY: 66
   rotateZ: 151
   speed: 0
+  move: 1
   points: []
 --- !u!120 &2097051475
 LineRenderer:

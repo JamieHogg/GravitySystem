@@ -37,7 +37,7 @@ public class CameraControllerthing : MonoBehaviour
         {
             child.Add(n.transform.Find("Shape").gameObject);
         }
-        cameraTarget = GameObject.Find("Star").transform.GetChild(0).gameObject;
+        //cameraTarget = GameObject.Find("Star").transform.GetChild(0).gameObject;
         //cameraTarget = GameObject.Find("Star").transform.GetChild(0).gameObject;
 
         lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y, cameraTarget.transform.position.z - offsetDistance);
@@ -55,10 +55,10 @@ public class CameraControllerthing : MonoBehaviour
         {
             offset = Quaternion.AngleAxis(rotateLeft * rotateSpeed, Vector3.up) * offset;
         }
-        else if (verticle)
-        {
-            offset = Quaternion.AngleAxis(rotateUp * rotateSpeed, Vector3.left) * offset;
-        }
+        //else if (verticle)
+        //{
+        //    offset = Quaternion.AngleAxis(rotateUp * rotateSpeed, Vector3.left) * offset;
+        //}
         transform.position = offset;
         transform.position = new Vector3(Mathf.Lerp(lastPosition.x, cameraTarget.transform.position.x + offset.x, smoothing * Time.deltaTime),
             Mathf.Lerp(lastPosition.y, cameraTarget.transform.position.y + offset.y, smoothing * Time.deltaTime),
@@ -109,6 +109,15 @@ public class CameraControllerthing : MonoBehaviour
             rotateLeft = 0;
             horizontal = false;
             verticle = false;
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            offsetDistance -= 0.1f;
+        }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            offsetDistance += 0.1f;
         }
     }
 

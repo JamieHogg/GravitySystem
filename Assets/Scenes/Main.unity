@@ -1409,6 +1409,11 @@ Prefab:
       propertyPath: m_TagString
       value: Star
       objectReference: {fileID: 0}
+    - target: {fileID: 54050699449095606, guid: cf9f36accf166d548a79583dd0556c71,
+        type: 2}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf9f36accf166d548a79583dd0556c71, type: 2}
   m_IsPrefabAsset: 0
@@ -3779,6 +3784,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1381758415}
   m_CullTransparentMesh: 0
+--- !u!1 &1416627493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1785467961952174, guid: cf9f36accf166d548a79583dd0556c71,
+    type: 2}
+  m_PrefabInternal: {fileID: 626652524}
 --- !u!1 &1417039017
 GameObject:
   m_ObjectHideFlags: 0
@@ -4668,7 +4678,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start
+  m_Text: Start/Stop
 --- !u!222 &1824764425
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4767,9 +4777,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nbodyObjs: []
   child: []
-  cameraTarget: {fileID: 1194454652}
+  cameraTarget: {fileID: 1416627493}
   rotateSpeed: 3
-  offsetDistance: 10
+  offsetDistance: 20
   smoothing: 100
   cameraRotation: 0
 --- !u!1 &1850048475
@@ -4966,10 +4976,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 36398614}
   m_HandleRect: {fileID: 1863934430}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 20
+  m_MinValue: 2
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
