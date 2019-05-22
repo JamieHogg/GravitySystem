@@ -146,6 +146,10 @@ public class UIController : MonoBehaviour {
     {
         planets[dropdown.value].GetComponent<Orbiting>().eccentricity = num;
     }
+    public void changeMass(float num)
+    {
+        planets[dropdown.value].GetComponent<Orbiting>().mass = num;
+    }
     public void changeProgress(float num)
     {
         planets[dropdown.value].GetComponent<Orbiting>().progress = (int)num;

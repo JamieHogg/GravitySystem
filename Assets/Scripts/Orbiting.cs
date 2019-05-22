@@ -15,6 +15,8 @@ public class Orbiting : MonoBehaviour
     public float semiMajorAxisA;
     [Range(0, 1)]
     public float eccentricity;
+    [Range(1, 2)]
+    public float mass = 1;
     [Range(0, 100)]
     public int progress;
 
@@ -60,6 +62,8 @@ public class Orbiting : MonoBehaviour
     {
         this.transform.parent = orbitTarget.transform.GetChild(0).transform;
         CalculateEllipse();
+
+        child.GetComponent<Rigidbody>().mass = mass;
 
         if (move)
         {

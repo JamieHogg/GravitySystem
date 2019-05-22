@@ -84,12 +84,12 @@ public class CameraControllerthing : MonoBehaviour
 
     void normalCamera()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             rotateLeft = 1;
             horizontal = true;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightShift))
         {
             rotateLeft = -1;
             horizontal = true;

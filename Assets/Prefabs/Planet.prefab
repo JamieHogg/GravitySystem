@@ -161,6 +161,7 @@ MonoBehaviour:
   orbitTarget: {fileID: 0}
   semiMajorAxisA: 2
   eccentricity: 0
+  mass: 1
   progress: 0
   progressDirection: 0
   rotateX: 0
